@@ -1,6 +1,7 @@
 ---
 - name: yum | Install PostgreSQL
   become: yes
+  become_method: sudo
   yum:
     name: "{{ item }}"
     state: installed
@@ -13,12 +14,14 @@
 
 - name: yum | Initialize PostgreSQL
   become: yes
+  become_method: sudo
   command: postgresql-setup initdb
   when: install_postgresql.changed
   tags: [db, postgresql]
 
 - name: yum | MD5-encrypted password for PostgreSQL 1
   become: yes
+  become_method: sudo
   replace:
     dest: /var/lib/pgsql/data/pg_hba.conf
     regexp: ^(host.*all.*all.*127.0.0.1\/32.*)ident$
@@ -27,6 +30,7 @@
 
 - name: yum | MD5-encrypted password for PostgreSQL 2
   become: yes
+  become_method: sudo
   replace:
     dest: /var/lib/pgsql/data/pg_hba.conf
     regexp: ^(host.*all.*all.*::1\/128.*)ident$
@@ -35,6 +39,7 @@
 
 - name: yum | Start and Enable PostgreSQL
   become: yes
+  become_method: sudo
   service:
     name: postgresql
     state: started
