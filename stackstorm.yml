@@ -1,6 +1,8 @@
 ---
 - name: Install st2
-  hosts: all
+  become: yes
+  become-method: sudo
+  become-user: irteamsu
   roles:
     - mongodb
     - rabbitmq
