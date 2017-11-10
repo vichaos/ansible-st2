@@ -1,5 +1,6 @@
 ---
 - name: Install PostgreSQL
   hosts: all
+  sudo: yes
   roles:
     - postgresql
