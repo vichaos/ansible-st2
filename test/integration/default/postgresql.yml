@@ -2,7 +2,7 @@
 - name: Install PostgreSQL
   hosts: all
   become: yes
-  become-method: sudo
-  become-user: irteamsu
+  become_method: sudo
+  become_user: irteamsu
   roles:
     - postgresql
