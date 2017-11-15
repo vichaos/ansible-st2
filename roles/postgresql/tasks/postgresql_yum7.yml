@@ -29,7 +29,7 @@
 - name: yum | Initialize PostgreSQL
   become: yes
   become_method: sudo
-  command: postgresql-setup initdb
+  command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
   when: install_postgresql.changed
   tags: [db, postgresql]
 
