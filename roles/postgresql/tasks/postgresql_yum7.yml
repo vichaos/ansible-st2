@@ -55,7 +55,7 @@
   become: yes
   become_method: sudo
   service:
-    name: postgresql
+    name: postgresql-9.6
     state: started
     enabled: yes
   tags: [db, postgresql]
