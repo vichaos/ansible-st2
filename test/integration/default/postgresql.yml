@@ -5,3 +5,7 @@
   become_method: sudo
   roles:
     - postgresql
+
+  environment:
+    http_proxy: http://10.133.77.212:6582
+    https_proxy: http://10.133.77.212:6582

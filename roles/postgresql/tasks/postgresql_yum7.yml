@@ -1,14 +1,28 @@
 ---
-- name: yum | Install PostgreSQL
+- name: yum |  Setup PostgreSQL repository for {{ ansible_distribution }}
+  become: yes
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    state: installed
+  when: ansible_distribution == "CentOS"
+  tags: [db, postgresql]
+
+- name: yum | Setup Citus repository for {{ ansible_distribution }}
+  become: yes
+  shell: curl https://install.citusdata.com/community/rpm.sh | sudo bash
+  tags: [db, postgresql]
+
+- name: yum | Install PostgreSQL and Citus
   become: yes
   become_method: sudo
   yum:
     name: "{{ item }}"
     state: installed
   with_items:
-    - postgresql-server
-    - postgresql-contrib
-    - postgresql-devel
+    - postgresql96-server
+    - postgresql96-contrib
+    - postgresql96-devel
+    - citus70_96
   register: install_postgresql
   tags: [db, postgresql]
 
